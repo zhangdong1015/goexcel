@@ -13,7 +13,7 @@ var boolTrueValue = []string{
 	"TRUE",
 	"1",
 	"是",
-	"正常",
+	"已淘汰",
 	"yes",
 	"Yes",
 	"YES",

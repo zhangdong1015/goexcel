@@ -125,6 +125,7 @@ func (p *Parser) appendError(errs error, err error) {
 func (p *Parser) parseRowToStruct(
 	rowIndex int, sheetData *SheetData, ve reflect.Value, tagMap map[string]Tag,
 ) (err error) {
+	p.currentSheetName = sheetData.SheetName
 	if ve.Kind() != reflect.Ptr {
 		return NewError(p.fileName, p.currentSheetName, fmt.Sprintf("row %d", rowIndex), ErrorTypePointer)
 	}
