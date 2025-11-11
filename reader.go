@@ -60,7 +60,7 @@ func (p *Parser) readToStruct(sheetName string, excelData *Data, output interfac
 		sheetName = excelData.SheetList[0]
 	}
 
-	p.currentSheetName = p.excelFile.GetSheetList()[0]
+	p.currentSheetName = sheetName
 
 	sheetData := excelData.SheetNameData[sheetName]
 
@@ -81,6 +81,8 @@ func (p *Parser) readToStruct(sheetName string, excelData *Data, output interfac
 	tagMap := parseFieldTagSetting(sliceElemStructType)
 
 	arr := reflect.MakeSlice(sliceType, 0, 0)
+	// 对数据进行排序
+	
 	for i := range sheetData.Rows {
 		out := reflect.New(sliceElemStructType)
 
