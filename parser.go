@@ -13,6 +13,7 @@ var boolTrueValue = []string{
 	"TRUE",
 	"1",
 	"是",
+	"正常",
 	"yes",
 	"Yes",
 	"YES",
@@ -41,7 +42,7 @@ type Parser struct {
 	AllowFieldRepeat bool
 	currentSheetName string
 
-	errsMap    map[string]error
+	ErrsMap    map[string]error
 	hasComment bool
 	// fieldHeadRowIndex 表头行索引，第一行为表头，则索引为1
 	fieldHeadRowIndex int
@@ -63,7 +64,7 @@ func NewParser() *Parser {
 		IsEmptyFunc: func(v string) bool {
 			return v == ""
 		},
-		errsMap: make(map[string]error),
+		ErrsMap: make(map[string]error),
 	}
 }
 

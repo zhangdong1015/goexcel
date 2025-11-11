@@ -85,8 +85,7 @@ func (p *Parser) readToStruct(sheetName string, excelData *Data, output interfac
 		out := reflect.New(sliceElemStructType)
 
 		if err := p.parseRowToStruct(i, sheetData, out, tagMap); err != nil {
-			p.appendError(errs, err)
-			continue
+			return err
 		}
 		if sliceElemType.Kind() == reflect.Ptr {
 			arr = reflect.Append(arr, out)
@@ -110,16 +109,16 @@ func (p *Parser) appendError(errs error, err error) {
 		return
 	}
 
-	if p.errsMap == nil {
-		p.errsMap = make(map[string]error)
+	if p.ErrsMap == nil {
+		p.ErrsMap = make(map[string]error)
 	}
 
-	if _, ok := p.errsMap[err.Error()]; ok {
+	if _, ok := p.ErrsMap[err.Error()]; ok {
 		return
 	}
 
 	errs = multierror.Append(errs, err)
-	p.errsMap[err.Error()] = err
+	p.ErrsMap[err.Error()] = err
 }
 
 // parse row to struct by tag setting
