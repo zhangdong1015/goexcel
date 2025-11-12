@@ -82,8 +82,9 @@ func (p *Parser) readToStruct(sheetName string, excelData *Data, output interfac
 
 	arr := reflect.MakeSlice(sliceType, 0, 0)
 	// 对数据进行排序
-	
-	for i := range sheetData.Rows {
+	offset := sheetData.DataIndexOffset
+	rowTotal := sheetData.RowTotal
+	for i := offset + 1; i <= rowTotal; i++ {
 		out := reflect.New(sliceElemStructType)
 
 		if err := p.parseRowToStruct(i, sheetData, out, tagMap); err != nil {
@@ -95,8 +96,8 @@ func (p *Parser) readToStruct(sheetName string, excelData *Data, output interfac
 		if sliceElemType.Kind() == reflect.Struct {
 			arr = reflect.Append(arr, out.Elem())
 		}
-
 	}
+
 	rv.Elem().Set(arr)
 
 	return
